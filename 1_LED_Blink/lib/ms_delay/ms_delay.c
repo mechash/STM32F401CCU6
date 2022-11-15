@@ -21,3 +21,12 @@
  *   SOFTWARE.
  */
 
+#include "ms_delay.h"
+
+void ms_delay ( unsigned int ms ) {
+	while ( ms-- > 0 ) {
+		volatile int x = 500;
+		while ( x-- > 0 )
+			__asm( "nop" ); /* instruction to waste CPU Cycles */
+	}
+}

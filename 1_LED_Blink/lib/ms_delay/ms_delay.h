@@ -21,3 +21,7 @@
  *   SOFTWARE.
  */
 
+#pragma once
+#define MS_DELAY_H
+
+void ms_delay ( unsigned int ms );
