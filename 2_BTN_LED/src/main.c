@@ -23,6 +23,31 @@
 #include "ms_delay.h"
 #include "stm32f4xx.h"
 
+#define GPIOA_EN ( 1U << 0 )
+#define GPIOC_EN ( 1U << 2 )
+#define PA0_IN   ~( 1U << 0 ) & ~( 1U << 1 )
+#define PC13_OUT ( 1U << 26 ) & ~( 1U << 27 )
+#define PA0_PU   ( 1U << 0 ) & ~( 1U << 1 )
+#define PA0      ( 1U << 0 )
+#define PC13     ( 1U << 13 )
+#define BTN      PA0
+#define LED      PC13
+
 int main ( ) {
+	RCC->AHB1ENR |= GPIOA_EN | GPIOC_EN;
+
+	GPIOA->MODER &= PA0_IN;
+	GPIOC->MODER |= PC13_OUT;
+
+	GPIOA->PUPDR |= PA0_PU;
+
+	while ( 1 ) {
+
+		if ( ( GPIOA->IDR & BTN ) != 0x1U ) {
+			GPIOC->ODR &= ~LED;
+		} else {
+			GPIOC->ODR |= LED;
+		}
+	}
 	return 0;
 }
