@@ -8,10 +8,10 @@
  *   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  *   copies of the Software, and to permit persons to whom the Software is
  *   furnished to do so, subject to the following conditions:
- 
+
  *   The above copyright notice and this permission notice shall be included in all
  *   copies or substantial portions of the Software.
- 
+
  *   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  *   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  *   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -29,14 +29,27 @@
 #define PC13       ( 1U << 13 )                 /* Setting the 13th bit of the GPIOC ODR to turn on and off LED */
 
 
-int main(){
-  
+int main ( void ) {
+
+	/* Enable clock for GPIOC */
 	RCC->AHB1ENR |= GPIOC_EN;
+
+	/* Set pin Mode */
 	GPIOC->MODER |= INPUT_MODE;
+
+	/* Infinite loop */
 	while ( 1 ) {
+
+		/* Set LED ON */
 		GPIOC->ODR &= ~PC13;
+
+		/* Delay for 2 sec */
 		ms_delay ( 2000 );
+
+		/* Set LED OFF */
 		GPIOC->ODR |= PC13;
+
+		/* Delay 2 sec */
 		ms_delay ( 2000 );
 	}
 	return 0;
