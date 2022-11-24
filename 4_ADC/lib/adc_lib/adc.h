@@ -29,5 +29,19 @@
 
 #pragma once
 
-#define ADC1_EN ( 1U << 8 )
-#define 
+#include "stm32f4xx.h"
+#include <stdint.h>
+#include <stdio.h>
+
+#define ADC1_EN      ( 1U << 8 )
+#define GPIOA_EN     ( 1U << 0 )
+#define ADC_CH1      ( 1U << 0 )
+#define ADC_SEQ_CH1  0x00
+#define ADC_CR2_ON   ( 1U << 0 )
+#define ADC_SW_START ( 1U << 30 )
+#define ADC_SR_ECO   ( 1U << 1 )
+#define ADC_SR_CONT  ( 1U << 1 )
+
+void adc_init ( void );
+void adc_begin_conversion ( void );
+uint32_t adc_read ( void );

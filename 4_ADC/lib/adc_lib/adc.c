@@ -26,11 +26,37 @@
 void adc_init ( void ) {
 	/***Configure the ADC GPIO Pin***/
 	/* Enable clock access to GPIOA */
+	RCC->AHB1ENR |= GPIOA_EN;
 
 	/* Set the mode of PA1 to Analog */
+	GPIOA->MODER |= ( ( 1U << 1 ) | ( 1U << 0 ) );
 
-	/***Configure the ADC Peripheral***/
+	/***Configure the ADC Module***/
 	/* Enable the clock access to ADC */
+	RCC->APB2ENR |= ADC1_EN;
 
-	/* Configure ADC parameters */
+	/* Conversion sequence start */
+	ADC1->SQR3 = ADC_CH1;
+
+	/* Conversion sequence length */
+	ADC1->SQR3 = ADC_SEQ_CH1;
+
+	/* Enable ADC Module */
+	ADC1->CR2 |= ADC_CR2_ON;
+}
+
+void adc_begin_conversion ( void ) {
+  /* Enable ADC Continuous Conversion */
+	ADC1->CR2 |= ADC_SR_CONT;
+	/* Start ADC Conversion */
+	ADC1->CR2 |= ADC_SW_START;
+}
+
+uint32_t adc_read ( void ) {
+	/* Wait for conversion to be compleat */
+	while ( !( ADC1->SR & ADC_SR_ECO ) ) {
+	}
+
+	/* Read converted result */
+	return ( ADC1->DR );
 }

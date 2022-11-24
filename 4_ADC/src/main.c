@@ -20,7 +20,31 @@
  *   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  *   SOFTWARE.
  */
+#include "adc.h"
+#include "ms_delay.h"
+#include "uart.h"
+
+uint32_t sensor_value;
+char buffer[40];
 
 int main ( void ) {
+
+	/* initialize uart for sending adc data to serial */
+	uart2_init ( );
+	/* initialize adc configuration */
+	adc_init ( );
+  /* start conversion */
+	adc_begin_conversion ( );
+
+	while ( 1 ) {
+
+    /* Read and store ADC data */
+		sensor_value = adc_read ( );
+    /* Print or Send data through serial */
+		sprintf ( buffer, "value of sensor = %d \n\r", (int)sensor_value );
+		uart2_putStr ( buffer );
+		ms_delay ( 500 );
+	}
+
 	return 0;
 }
