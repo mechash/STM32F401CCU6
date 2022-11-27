@@ -18,7 +18,15 @@
     {
       "name": "4_ADC",
       "path": "4_ADC"
+    },
+    {
+      "name": "5_SYSTICK",
+      "path": "5_SYSTICK"
     }
   ],
-  "settings": {}
+  "settings": {
+    "cSpell.words": [
+      "SYSTICK"
+    ]
+  }
 }
