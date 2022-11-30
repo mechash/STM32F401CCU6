@@ -26,8 +26,17 @@
 
 void tim2_1hz_init ( void ) {
 	/* Enable clock access to TIM2*/
-  /* Set the Pre-scaler Value */
-  /* Set the Auto-reload Value */
-  /* Clear the Timer Counter */
-  /* Enable TIMER */
+	RCC->APB1ENR |= TIM2_EN;
+
+	/* Set the Pre-scaler Value */
+	TIM2->PSC = 1600 - 1;    // 16 000 000 / 1 600 = 10 000
+
+	/* Set the Auto-reload Value */
+	TIM2->ARR = 10000 - 1;
+
+	/* Clear the Timer Counter */
+	TIM2->CNT = 0;
+
+	/* Enable TIMER */
+	TIM2->CR1 = CR1_CEN;
 }
