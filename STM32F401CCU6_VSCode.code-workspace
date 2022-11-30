@@ -22,6 +22,10 @@
     {
       "name": "5_SYSTICK",
       "path": "5_SYSTICK"
+    },
+    {
+      "name": "6_Timer",
+      "path": "6_Timer"
     }
   ],
   "settings": {
